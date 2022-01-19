@@ -1,0 +1,15 @@
+# Tells Travis-CI that this configuration requires root level permission
+sudo: required
+
+# Tell to install docker 
+services:
+  - docker
+
+# Tells to install components before we run the actual tests
+before_install:
+  - docker build -t alokps/DockerPlayGround -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true alokps/DockerPlayGround npm run test
+
+language: generic
